@@ -54,6 +54,11 @@ resource "azurerm_firewall_policy" "policy_01" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.policies_sku
+
+  insights {
+    enabled                            = true
+    default_log_analytics_workspace_id = var.log_analytics_workspace_id
+  }
 }
 
 resource "azurerm_firewall_policy_rule_collection_group" "collection_group_terraform" {
