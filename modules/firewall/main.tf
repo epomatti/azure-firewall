@@ -1,5 +1,5 @@
 resource "azurerm_public_ip" "default" {
-  name                = "pip-${var.workload}-firewall}"
+  name                = "pip-${var.workload}-firewall"
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Static"
