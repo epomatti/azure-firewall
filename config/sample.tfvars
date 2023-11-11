@@ -1,11 +1,11 @@
 location = "eastus"
 
-firewall_sku_tier          = "Basic"
-firewall_threat_intel_mode = "Alert"
+firewall_sku_tier     = "Standard"
+firewall_policies_sku = "Standard"
 
-firewall_policies_sku = "Basic"
+firewall_threat_intel_mode = "Alert"
 
 vm_size = "Standard_B1ls"
 
 # DNAT
-home_cidrs = ["123.4.5.6/32"]
+home_cidrs = ["191.249.67.150/32"]
