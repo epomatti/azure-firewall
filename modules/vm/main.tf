@@ -1,4 +1,5 @@
 resource "azurerm_public_ip" "main" {
+  count               = var.create_public_ip ? 1 : 0
   name                = "pip-${var.name}"
   resource_group_name = var.resource_group_name
   location            = var.location
@@ -14,7 +15,7 @@ resource "azurerm_network_interface" "main" {
     name                          = "ipconfig1"
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.main.id
+    public_ip_address_id          = var.create_public_ip ? azurerm_public_ip.main[0].id : null
   }
 
   lifecycle {

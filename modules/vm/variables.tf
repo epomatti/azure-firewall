@@ -17,3 +17,7 @@ variable "subnet_id" {
 variable "size" {
   type = string
 }
+
+variable "create_public_ip" {
+  type = bool
+}

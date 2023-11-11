@@ -4,6 +4,24 @@ resource "azurerm_public_ip" "default" {
   resource_group_name = var.resource_group_name
   allocation_method   = "Static"
   sku                 = "Standard"
+
+  # Workaround as per documentation
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "azurerm_public_ip" "nat_vm2" {
+  name                = "pip-firewall-nat-vm2"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+
+  # Workaround as per documentation
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "azurerm_firewall" "default" {
@@ -23,6 +41,11 @@ resource "azurerm_firewall" "default" {
     name                 = "ipconfig1"
     subnet_id            = var.firewall_subnet_id
     public_ip_address_id = azurerm_public_ip.default.id
+  }
+
+  ip_configuration {
+    name                 = "vm2-public-nat"
+    public_ip_address_id = azurerm_public_ip.nat_vm2.id
   }
 }
 
@@ -88,20 +111,21 @@ resource "azurerm_firewall_policy_rule_collection_group" "collection_group_terra
     }
   }
 
-  # nat_rule_collection {
-  #   name     = "nat_rule_collection1"
-  #   priority = 300
-  #   action   = "Dnat"
-  #   rule {
-  #     name                = "nat_rule_collection1_rule1"
-  #     protocols           = ["TCP", "UDP"]
-  #     source_addresses    = ["10.0.0.1", "10.0.0.2"]
-  #     destination_address = "192.168.1.1"
-  #     destination_ports   = ["80"]
-  #     translated_address  = "192.168.0.1"
-  #     translated_port     = "8080"
-  #   }
-  # }
+  nat_rule_collection {
+    name     = "NATVM2"
+    priority = 300
+    action   = "Dnat"
+
+    rule {
+      name                = "NATVM2"
+      protocols           = ["TCP", "UDP"]
+      source_addresses    = ["*"]
+      destination_address = azurerm_public_ip.nat_vm2.ip_address
+      destination_ports   = ["22"]
+      translated_address  = var.vm2_private_ip_address
+      translated_port     = "22"
+    }
+  }
 }
 
 ### Monitor ###

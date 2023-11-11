@@ -37,3 +37,7 @@ variable "vnet_ip_group_id" {
 variable "home_ip_group_id" {
   type = string
 }
+
+variable "vm2_private_ip_address" {
+  type = string
+}

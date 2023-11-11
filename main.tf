@@ -58,6 +58,7 @@ module "vm1" {
   location            = azurerm_resource_group.default.location
   subnet_id           = module.vnet_spoke1.subnet_id
   size                = var.vm_size
+  create_public_ip    = true
 }
 
 module "vm2" {
@@ -67,6 +68,7 @@ module "vm2" {
   location            = azurerm_resource_group.default.location
   subnet_id           = module.vnet_spoke2.subnet_id
   size                = var.vm_size
+  create_public_ip    = false
 }
 
 resource "azurerm_log_analytics_workspace" "default" {
@@ -112,6 +114,8 @@ module "firewall" {
 
   vnet_ip_group_id = azurerm_ip_group.vnets.id
   home_ip_group_id = azurerm_ip_group.home.id
+
+  vm2_private_ip_address = module.vm2.private_ip_address
 }
 
 module "user_defined_routes" {

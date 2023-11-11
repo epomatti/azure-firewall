@@ -1,5 +1,5 @@
 output "public_ip" {
-  value = azurerm_public_ip.main.ip_address
+  value = var.create_public_ip ? azurerm_public_ip.main[0].ip_address : null
 }
 
 output "asg_id" {
