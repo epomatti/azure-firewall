@@ -24,3 +24,27 @@ resource "azurerm_firewall" "default" {
     public_ip_address_id = azurerm_public_ip.default.id
   }
 }
+
+
+### Monitor ###
+resource "azurerm_monitor_diagnostic_setting" "default" {
+  name                       = "firewall-monitor"
+  target_resource_id         = azurerm_firewall.default.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  enabled_log {
+    category = "AZFWNetworkRule"
+  }
+
+  enabled_log {
+    category = "AZFWNatRule"
+  }
+
+  enabled_log {
+    category = "AZFWApplicationRule"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
+}
