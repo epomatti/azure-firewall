@@ -51,6 +51,23 @@ module "peerings" {
   spoke2_vnet_name = module.vnet_spoke2.vnet_name
 }
 
+module "vm1" {
+  source              = "./modules/vm"
+  name                = "vm1"
+  resource_group_name = azurerm_resource_group.default.name
+  location            = azurerm_resource_group.default.location
+  subnet_id           = module.vnet_spoke1.subnet_id
+  size                = var.vm_size
+}
+
+module "vm2" {
+  source              = "./modules/vm"
+  name                = "vm2"
+  resource_group_name = azurerm_resource_group.default.name
+  location            = azurerm_resource_group.default.location
+  subnet_id           = module.vnet_spoke2.subnet_id
+  size                = var.vm_size
+}
 
 # resource "azurerm_log_analytics_workspace" "default" {
 #   name                = "log-${local.workload}"

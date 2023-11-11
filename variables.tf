@@ -13,3 +13,7 @@ variable "firewall_threat_intel_mode" {
 variable "firewall_policies_sku" {
   type = string
 }
+
+variable "vm_size" {
+  type = string
+}
