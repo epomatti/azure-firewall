@@ -11,11 +11,12 @@ resource "azurerm_firewall" "default" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku_name            = "AZFW_VNet"
+  firewall_policy_id  = azurerm_firewall_policy.policy_01.id
 
-  # [Basic, Standard, Premium]
+  # Basic, Standard, Premium
   sku_tier = var.sku_tier
 
-  # [Alert, Deny, Off]
+  # Alert, Deny, Off
   threat_intel_mode = var.threat_intel_mode
 
   ip_configuration {
