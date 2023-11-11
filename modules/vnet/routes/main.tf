@@ -6,7 +6,7 @@ resource "azurerm_route_table" "spoke1" {
 
   route {
     name                   = "route-all-to-hub"
-    address_prefix         = "0.0.0.0/0"
+    address_prefix         = var.spoke2_cidr
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = var.firewall_private_ip
   }

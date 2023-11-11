@@ -17,3 +17,7 @@ variable "firewall_policies_sku" {
 variable "vm_size" {
   type = string
 }
+
+variable "home_cidrs" {
+  type = list(string)
+}

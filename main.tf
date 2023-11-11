@@ -77,6 +77,14 @@ resource "azurerm_log_analytics_workspace" "default" {
   retention_in_days   = 30
 }
 
+resource "azurerm_ip_group" "home" {
+  name                = "ipgroup-home-space"
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+
+  cidrs = var.home_cidrs
+}
+
 resource "azurerm_ip_group" "vnets" {
   name                = "ipgroup-vnet-space"
   location            = azurerm_resource_group.default.location
@@ -111,5 +119,6 @@ module "user_defined_routes" {
 
   spoke1_subnet_id    = module.vnet_spoke1.subnet_id
   spoke2_subnet_id    = module.vnet_spoke2.subnet_id
+  spoke2_cidr         = module.vnet_spoke2.address_space[0]
   firewall_private_ip = module.firewall.firewall_private_ip
 }

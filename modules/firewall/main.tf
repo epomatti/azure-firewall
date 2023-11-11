@@ -36,10 +36,12 @@ resource "azurerm_firewall_policy" "policy_01" {
 #   name               = "example-fwpolicy-rcg"
 #   firewall_policy_id = azurerm_firewall_policy.example.id
 #   priority           = 500
+
 #   application_rule_collection {
 #     name     = "app_rule_collection1"
 #     priority = 500
-#     action   = "Deny"
+#     action   = "Allow"
+
 #     rule {
 #       name = "app_rule_collection1_rule1"
 #       protocols {

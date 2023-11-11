@@ -5,3 +5,7 @@ output "public_ip" {
 output "asg_id" {
   value = azurerm_application_security_group.default.id
 }
+
+output "private_ip_address" {
+  value = azurerm_network_interface.main.private_ip_address
+}
