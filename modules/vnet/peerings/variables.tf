@@ -17,3 +17,11 @@ variable "spoke1_vnet_name" {
 variable "spoke1_vnet_id" {
   type = string
 }
+
+variable "spoke2_vnet_name" {
+  type = string
+}
+
+variable "spoke2_vnet_id" {
+  type = string
+}
