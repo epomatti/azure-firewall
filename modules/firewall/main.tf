@@ -77,7 +77,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "collection_group_terra
         port = 443
       }
       source_ip_groups  = [var.vnet_ip_group_id]
-      destination_fqdns = ["*.microsoft.com"]
+      destination_fqdns = ["*.microsoft.com", "microsoft.com"]
     }
   }
 
