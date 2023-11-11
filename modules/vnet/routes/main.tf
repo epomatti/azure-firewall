@@ -25,3 +25,13 @@ resource "azurerm_route_table" "spoke2" {
     next_hop_in_ip_address = var.firewall_private_ip
   }
 }
+
+resource "azurerm_subnet_route_table_association" "spoke1" {
+  subnet_id      = var.spoke1_subnet_id
+  route_table_id = azurerm_route_table.spoke1.id
+}
+
+resource "azurerm_subnet_route_table_association" "spoke2" {
+  subnet_id      = var.spoke2_subnet_id
+  route_table_id = azurerm_route_table.spoke2.id
+}

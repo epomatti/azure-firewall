@@ -102,3 +102,14 @@ module "firewall" {
   firewall_subnet_id         = module.vnet_firewall.subnet_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.default.id
 }
+
+module "user_defined_routes" {
+  source              = "./modules/vnet/routes"
+  workload            = local.workload
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+
+  spoke1_subnet_id    = module.vnet_spoke1.subnet_id
+  spoke2_subnet_id    = module.vnet_spoke2.subnet_id
+  firewall_private_ip = module.firewall.firewall_private_ip
+}

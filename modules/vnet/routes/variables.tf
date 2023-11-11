@@ -13,3 +13,11 @@ variable "location" {
 variable "firewall_private_ip" {
   type = string
 }
+
+variable "spoke1_subnet_id" {
+  type = string
+}
+
+variable "spoke2_subnet_id" {
+  type = string
+}

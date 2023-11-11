@@ -15,7 +15,7 @@ resource "azurerm_firewall" "default" {
   # [Basic, Standard, Premium]
   sku_tier = var.sku_tier
 
-  # [Alert,  Deny, Off]
+  # [Alert, Deny, Off]
   threat_intel_mode = var.threat_intel_mode
 
   ip_configuration {
