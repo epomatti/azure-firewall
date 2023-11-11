@@ -18,6 +18,10 @@ variable "sku_tier" {
   type = string
 }
 
+variable "policies_sku" {
+  type = string
+}
+
 variable "threat_intel_mode" {
   type = string
 }

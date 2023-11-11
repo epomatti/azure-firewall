@@ -76,3 +76,29 @@ resource "azurerm_log_analytics_workspace" "default" {
   sku                 = "PerGB2018"
   retention_in_days   = 30
 }
+
+resource "azurerm_ip_group" "vnets" {
+  name                = "ipgroup-vnet-space"
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+
+  cidrs = [
+    module.vnet_firewall.address_space[0],
+    module.vnet_spoke1.address_space[0],
+    module.vnet_spoke2.address_space[0]
+  ]
+}
+
+module "firewall" {
+  source              = "./modules/firewall"
+  workload            = local.workload
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+
+  sku_tier          = var.firewall_sku_tier
+  policies_sku      = var.firewall_policies_sku
+  threat_intel_mode = var.firewall_threat_intel_mode
+
+  firewall_subnet_id         = module.vnet_firewall.subnet_id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.default.id
+}
