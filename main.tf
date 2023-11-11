@@ -109,6 +109,9 @@ module "firewall" {
 
   firewall_subnet_id         = module.vnet_firewall.subnet_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.default.id
+
+  vnet_ip_group_id = azurerm_ip_group.vnets.id
+  home_ip_group_id = azurerm_ip_group.home.id
 }
 
 module "user_defined_routes" {

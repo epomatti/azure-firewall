@@ -29,3 +29,11 @@ variable "threat_intel_mode" {
 variable "log_analytics_workspace_id" {
   type = string
 }
+
+variable "vnet_ip_group_id" {
+  type = string
+}
+
+variable "home_ip_group_id" {
+  type = string
+}
